@@ -1,7 +1,7 @@
 
 
 // src/controllers/carController.js
-const Car = require('../models/featuredCarModel'); // Ensure this model is defined correctly
+const Car = require('../models/featuredcarmodel'); // Ensure this model is defined correctly
 const multer = require('multer');
 const path = require('path');
 
