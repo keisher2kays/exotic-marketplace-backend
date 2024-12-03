@@ -21,7 +21,29 @@ app.get('/health', (req, res) => {
   });
 
 // Middleware
-app.use(cors());
+// app.use(cors());
+const allowedOrigins = ['http://localhost:3000', 'https://rare-rides.netlify.app/','http://localhost:3002', '*' ]; // Add your frontend URL(s) here
+
+// Basic CORS setup
+app.use(cors({
+  origin: function(origin, callback) {
+    console.log('Request Origin:', origin); // Log the origin
+    // Allow requests with no origin (like mobile apps, curl requests)
+    if (!origin) {
+      return callback(null, true);
+    }
+  
+    // Allow if origin is in whitelist or origin is undefined
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
