@@ -69,9 +69,26 @@
 const Car = require('../models/carlocatermodel'); // Adjust the path to your Car model
 
 // Get all cars
+// exports.getAllCars = async (req, res) => {
+//     try {
+//         const cars = await Car.find(); // Fetch all cars from the database
+//         res.status(200).json(cars);
+//     } catch (error) {
+//         res.status(500).json({ message: 'Error retrieving cars', error });
+//     }
+// };
 exports.getAllCars = async (req, res) => {
+    const { location } = req.query; // Get the location from the query parameters
+
     try {
-        const cars = await Car.find(); // Fetch all cars from the database
+        let cars;
+        if (location) {
+            // If a location is provided, filter cars by location
+            cars = await Car.find({ location: new RegExp(location, 'i') }); // Use a regex for case-insensitive matching
+        } else {
+            // If no location is provided, fetch all cars
+            cars = await Car.find();
+        }
         res.status(200).json(cars);
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving cars', error });
