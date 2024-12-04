@@ -21,9 +21,12 @@ app.get('/health', (req, res) => {
   });
 
 // Middleware
-// app.use(cors());
-const allowedOrigins = ['http://localhost:3000', 'https://rare-rides.netlify.app/','http://localhost:3002', '*' ]; // Add your frontend URL(s) here
-
+// const allowedOrigins = ['http://localhost:3000', 'https://rare-rides.netlify.app/', ]; // Add your frontend URL(s) here
+const allowedOrigins = [
+  'http://localhost:3000', 
+  'https://rare-rides.netlify.app', 
+   'https://674f15c71b1ffd0877d3190f--rare-rides.netlify.app'
+];
 // Basic CORS setup
 app.use(cors({
   origin: function(origin, callback) {
@@ -52,7 +55,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve u
 
 // Database connection
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected'))
+    .then(() => console.log('Database connction established'))
     .catch(err => console.error('MongoDB connection error:', err));
 
 // Routes
