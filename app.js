@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const carDetails = require('./src/routes/cardetailsroutes');
+// const carDetails = require('./src/routes/cardetailsroutes');
 const carlocator = require('./src/routes/carlocatorroutes'); 
 const carRoutes = require('./src/routes/featuredcarroutes'); 
 const carManagementRoutes = require('./src/routes/carlocatorroutes'); 
@@ -59,7 +59,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
     .catch(err => console.error('MongoDB connection error:', err));
 
 // Routes
-app.use('/api/cars3', carDetails);
+// app.use('/api/cars3', carDetails);
 app.use('/api', carlocator);
 app.use('/api', carRoutes);
 app.use('/api', carManagementRoutes);// Prefix all routes with /api
